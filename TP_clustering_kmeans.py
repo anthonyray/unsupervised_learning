@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.spatial as spatial
 
 def generate_data(n, centroids, sigma=1., random_state=42):
     """Generate sample data
@@ -66,7 +67,24 @@ def compute_inertia_centroids(X, labels):
     centroids: array, shape=(k, p)
         The estimated centroids
     """
-    # insert code here
+    labels_unique = np.unique(labels)  # Retrieves a list of the differents labels    
+    
+    # Compute new centroids
+    centroids = list()
+    for label in labels_unique:
+        centroid = X[np.where(labels==label)].sum(axis=0) / (X[np.where(labels==label)].shape[0])
+        centroids.append(centroid)
+    
+    centroids = np.array(centroids)
+    
+    # Calculate inertia : 
+    labels_unique = np.unique(labels)  # Retrieves a list of the differents labels
+    inertia = 0.0    
+    for label in labels_unique:
+        partial_inertia = np.sum(np.square(spatial.distance.cdist(X[np.where(labels==label)],centroids[label].reshape(-1,2),'euclidean')))
+        inertia += partial_inertia
+
+
     return inertia, centroids
 
 
