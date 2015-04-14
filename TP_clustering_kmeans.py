@@ -132,7 +132,7 @@ if __name__ == '__main__':
     X, y = generate_data(n, centroids)
 
     centroids, labels = kmeans(X, n_clusters=3, random_state=42)
-    # plotting code
+    # plotting results
     import matplotlib.pyplot as plt
     plt.close('all')
     plt.figure()
