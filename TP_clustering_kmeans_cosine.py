@@ -82,7 +82,7 @@ def compute_inertia_centroids(X, labels):
     inertia = 0.0    
     for label in labels_unique:
         centroid = centroids[label].reshape(-1,X.shape[1])
-        partial_inertia = np.sum(np.square(spatial.distance.cdist(X[np.where(labels==label)],centroid,'euclidean')))
+        partial_inertia = np.sum(np.square(spatial.distance.cdist(X[np.where(labels==label)],centroid,'cosine')))
         inertia += partial_inertia
 
 
